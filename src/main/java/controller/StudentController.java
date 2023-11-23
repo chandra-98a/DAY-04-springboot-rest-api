@@ -1,10 +1,7 @@
 package controller;
 
 import bean.Student;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,18 +33,26 @@ public class StudentController {
     // http://localhost:8080/students/1/ramesh/fadatare
     @GetMapping("students/{id}/{first-name}/{last-name}")
     public Student studentPathVariable(@PathVariable("id") int studentId,
-                                       @PathVariable("first-name") String firstName,
-                                       @PathVariable("last-name") String lastName){
-        return new Student(studentId, firstName, lastName);
+                                       @PathVariable("first-name") String fName,
+                                       @PathVariable("last-name") String lName){
+        return new Student(studentId, fName, lName);
     }
 
     // Spring boot REST API with Request Param
     //  http://localhost:8080/students/query?id=1&firstName=Ramesh&lastName=Fadatare
     @GetMapping("students/query")
     public Student studentRequestVariable(@RequestParam int id,
-                                          @RequestParam String firstName,
-                                          @RequestParam String lastName){
-        return new Student(id, firstName, lastName);
+                                          @RequestParam String fName,
+                                          @RequestParam String lName){
+        return new Student(id, fName, lName);
     }
 
+//@RequestBody @PostMapping
+    @PostMapping("students/create")
+    public  Student createStudent(@RequestBody Student student){
+        System.out.println(student.getId());
+        System.out.println(student.getFname());
+        System.out.println(student.getlName());
+return student;
+    }
 }
